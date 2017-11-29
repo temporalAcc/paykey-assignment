@@ -1,0 +1,22 @@
+[
+   {
+      "amount":"1",
+      "currency":"GBP",
+      "sku":"J4064"
+   },
+   {
+      "amount":"1",
+      "currency":"EUR",
+      "sku":"J4064"
+   },
+   {
+      "amount":"1",
+      "currency":"USD",
+      "sku":"J4064"
+   },
+   {
+      "amount":"1",
+      "currency":"AUD",
+      "sku":"J4064"
+   }
+]
