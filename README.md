@@ -1,7 +1,7 @@
 # PayKey's Developer Home Assignment
 
 ## Product Sales Viewer
-In this task you would design and implement an Android application to help the company sales people who are traveling all the time. The sales guys and gals need a list of every product the company trades with and the sales of those products which is made with different currencies.
+In this task you would design and implement an application to help the company sales people who are traveling all the time. The sales guys and gals need a list of every product the company trades with and the sales of those products which is made with different currencies.
 
 ### Instructions:
 
