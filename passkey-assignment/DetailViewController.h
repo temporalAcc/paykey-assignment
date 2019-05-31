@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  DetailViewController.h
 //  passkey-assignment
 //
 //  Created by Igor Pivnyk on 31/05/2019.
@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+@interface DetailViewController : UITableViewController
 
 @end
 
+NS_ASSUME_NONNULL_END
