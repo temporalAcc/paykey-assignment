@@ -93,15 +93,15 @@ typedef NS_ENUM(NSUInteger, DataType)
     if ([first isEqualToString:second])
         return amount;
 
-    double ratio = [self getApropriateRateFor:first and:second usingRates:[self getRates]];
+    double ratio = [self getApropriateRateFor:first and:second];
 
     return amount * ratio;
 }
 
-- (double)getApropriateRateFor:(NSString *)first and:(NSString *)second usingRates:(NSArray *)rates
+- (double)getApropriateRateFor:(NSString *)first and:(NSString *)second
 {
     if ([first isEqualToString:second]) return 1.0;
-
+    NSArray *rates = [self getRates];
     NSPredicate *straightSearchPredicate = [NSPredicate predicateWithFormat:@"(SELF.from == %@) AND (SELF.to == %@)", first, second];
     NSPredicate *reverveSearchPredicate = [NSPredicate predicateWithFormat:@"(SELF.from == %@) AND (SELF.to == %@)", second, first];
 
@@ -109,15 +109,29 @@ typedef NS_ENUM(NSUInteger, DataType)
     NSArray *reverse = [rates filteredArrayUsingPredicate:reverveSearchPredicate];
     if (straight.count == 0 && reverse.count == 0)
     {
-        NSMutableArray *mutableRates = [rates mutableCopy];
+
+        // This is ugly, I know that....
+
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.to == %@", second];
-        NSArray *convertableCurr = [rates filteredArrayUsingPredicate:pred];
-        NSDictionary *rate = convertableCurr.firstObject;
-        [mutableRates removeObject:rate];
-        double currentRatio = [rate[@"rate"] doubleValue];
-        NSString *newSecond = rate[@"from"];
-        double tmpRatio = [self getApropriateRateFor:first and:newSecond usingRates:[mutableRates copy]];
-        return currentRatio * tmpRatio;
+        NSArray *arrayFrom  = [rates filteredArrayUsingPredicate:pred];
+
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF.from == %@", first];
+        NSArray *arrayTo = [rates filteredArrayUsingPredicate:pred1];
+
+        NSString *intersectCurrency;
+        for (NSDictionary *pair in arrayFrom)
+        {
+            NSString *firstCurr = pair[@"from"];
+            for (NSDictionary *secondPair in arrayTo)
+            {
+                NSString *secondCurr = secondPair[@"to"];
+                if ([secondCurr isEqualToString:firstCurr]) intersectCurrency = firstCurr;
+            }
+        }
+
+        double firstToIntersectRation = [self getApropriateRateFor:first and:intersectCurrency];
+        double intersectToSecondRation = [self getApropriateRateFor:intersectCurrency and:second];
+        return intersectToSecondRation * firstToIntersectRation;
     }
 
     return straight.count == 0 ? 1 / [reverse.firstObject[@"rate"] doubleValue] : [straight.firstObject[@"rate"] doubleValue];
