@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, DataType)
     return sharedDM;
 }
 
+// Public Methods
 
 - (NSArray *)getRates
 {
@@ -40,6 +41,29 @@ typedef NS_ENUM(NSUInteger, DataType)
     return result;
 }
 
+
++ (NSArray *)filterTransactionsArray:(NSArray *)transactions ByParameter:(PSKFilterParameter)parameter andValue:(NSString *)value
+{
+    NSPredicate *filterPredicate;
+    switch (parameter) {
+        case PSKFilterParameterSKU:
+            filterPredicate = [NSPredicate predicateWithFormat:@"SELF.sku == %@", value];
+            break;
+        case PSKFilterParameterCurrency:
+            filterPredicate = [NSPredicate predicateWithFormat:@"SELF.currency == %@", value];
+            break;
+        default:
+            break;
+    }
+
+    NSArray *result = [transactions filteredArrayUsingPredicate:filterPredicate];
+    return result;
+}
+
+
+// Private methods
+
+
 - (NSArray *)getDataFor:(DataType)dataType
 {
     NSPredicate *filterPreciate;
@@ -49,6 +73,7 @@ typedef NS_ENUM(NSUInteger, DataType)
             break;
         case DataTypeTransactions:
             filterPreciate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", @"transactions"];
+            break;
         default:
             break;
     }

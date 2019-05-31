@@ -8,7 +8,7 @@
 
 #import "DetailViewController.h"
 
-static NSString *cellID = @"detailCell";
+
 
 @interface DetailViewController ()
 

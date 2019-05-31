@@ -18,6 +18,7 @@
 		1D462FD122A13BC100163625 /* transactions2.json in Resources */ = {isa = PBXBuildFile; fileRef = 1D462FCD22A13BC100163625 /* transactions2.json */; };
 		1D462FD422A13EDB00163625 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D462FD322A13EDB00163625 /* MainViewController.m */; };
 		1D462FD722A13EF100163625 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D462FD622A13EF100163625 /* DetailViewController.m */; };
+		1D462FDA22A13FA800163625 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D462FD922A13FA800163625 /* DataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,9 @@
 		1D462FD322A13EDB00163625 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		1D462FD522A13EF100163625 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		1D462FD622A13EF100163625 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		1D462FD822A13FA800163625 /* DataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		1D462FD922A13FA800163625 /* DataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		1D462FDB22A1506B00163625 /* PrefixHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +80,14 @@
 				1D462FD322A13EDB00163625 /* MainViewController.m */,
 				1D462FD522A13EF100163625 /* DetailViewController.h */,
 				1D462FD622A13EF100163625 /* DetailViewController.m */,
+				1D462FD822A13FA800163625 /* DataManager.h */,
+				1D462FD922A13FA800163625 /* DataManager.m */,
 				1D462FB922A13A8300163625 /* Main.storyboard */,
 				1D462FBC22A13A8600163625 /* Assets.xcassets */,
 				1D462FBE22A13A8600163625 /* LaunchScreen.storyboard */,
 				1D462FC122A13A8600163625 /* Info.plist */,
 				1D462FC222A13A8600163625 /* main.m */,
+				1D462FDB22A1506B00163625 /* PrefixHeader.h */,
 			);
 			path = "passkey-assignment";
 			sourceTree = "<group>";
@@ -171,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D462FC322A13A8600163625 /* main.m in Sources */,
+				1D462FDA22A13FA800163625 /* DataManager.m in Sources */,
 				1D462FD422A13EDB00163625 /* MainViewController.m in Sources */,
 				1D462FB522A13A8300163625 /* AppDelegate.m in Sources */,
 				1D462FD722A13EF100163625 /* DetailViewController.m in Sources */,
@@ -317,6 +325,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FCLYBXX3KC;
+				GCC_PREFIX_HEADER = "passkey-assignment/PrefixHeader.h";
 				INFOPLIST_FILE = "passkey-assignment/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -335,6 +344,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FCLYBXX3KC;
+				GCC_PREFIX_HEADER = "passkey-assignment/PrefixHeader.h";
 				INFOPLIST_FILE = "passkey-assignment/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

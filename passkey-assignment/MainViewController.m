@@ -7,19 +7,19 @@
 //
 
 #import "MainViewController.h"
+#import "DataManager.h"
 
 
-static NSString *cellID = @"mainCell";
 
 @interface MainViewController ()
-
+@property (nonatomic, strong) NSArray *transactions;
 @end
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _transactions = [DataManager.shared getTransactions];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -30,24 +30,28 @@ static NSString *cellID = @"mainCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return _transactions.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kPKAMainCellReuseID forIndexPath:indexPath];
+    NSDictionary *dataForCell = _transactions[indexPath.row];
+    NSUInteger transactionsCount = [DataManager filterTransactionsArray:_transactions
+                                                            ByParameter:PSKFilterParameterSKU
+                                                               andValue:dataForCell[kPKASKU]].count;
+
+    cell.textLabel.text = [NSString stringWithFormat:@"SKU: %@", dataForCell[kPKASKU]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Tr. Count: %ld", transactionsCount];
     
     return cell;
 }
-*/
+
+
 
 /*
 // Override to support conditional editing of the table view.

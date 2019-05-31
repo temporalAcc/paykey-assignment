@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM(NSUInteger, PSKFilterParameter) {
+    PSKFilterParameterSKU,
+    PSKFilterParameterCurrency
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DataManager : NSObject
@@ -17,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)getRates;
 - (NSArray *)getTransactions;
 
++ (NSArray *)filterTransactionsArray:(NSArray *)transactions ByParameter:(PSKFilterParameter)parameter andValue:(NSString *)value;
 @end
 
 NS_ASSUME_NONNULL_END
