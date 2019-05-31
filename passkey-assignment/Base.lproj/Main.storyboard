@@ -40,9 +40,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="1vz-wC-mQ1" kind="show" id="p6B-qe-WEf"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -51,6 +48,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Products" id="6eZ-iA-8kF"/>
+                    <connections>
+                        <segue destination="1vz-wC-mQ1" kind="show" identifier="detailSegue" id="ip5-Ld-7He"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNS-yJ-DIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

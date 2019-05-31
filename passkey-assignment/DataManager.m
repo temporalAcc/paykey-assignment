@@ -60,6 +60,69 @@ typedef NS_ENUM(NSUInteger, DataType)
     return result;
 }
 
++ (NSArray *)groupByKey:(NSString *)key transactions:(NSArray *)transactions
+{
+    NSMutableArray *existingEntriesForKey = [NSMutableArray array];
+    for (NSDictionary *transaction in transactions)
+    {
+        NSString *currency = transaction[key];
+        if ([existingEntriesForKey containsObject:currency])
+            continue;
+        else
+            [existingEntriesForKey addObject:currency];
+    }
+
+    NSMutableArray *result = [NSMutableArray array];
+    for (NSString *entry in existingEntriesForKey)
+    {
+        NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"SELF.%@ == %@",key, entry];
+        NSArray *transactionsByKey = [transactions filteredArrayUsingPredicate:searchPredicate];
+        [result addObject:@{
+                            kPKATransactionGroupTitle:entry,
+                            kPKATransactionGroupTransactions:transactionsByKey
+                            }];
+    }
+    return [result copy];
+}
+
+
+
+
+- (double)convertFrom:(NSString *)first to:(NSString *)second amount:(double)amount
+{
+    if ([first isEqualToString:second])
+        return amount;
+
+    double ratio = [self getApropriateRateFor:first and:second usingRates:[self getRates]];
+
+    return amount * ratio;
+}
+
+- (double)getApropriateRateFor:(NSString *)first and:(NSString *)second usingRates:(NSArray *)rates
+{
+    if ([first isEqualToString:second]) return 1.0;
+
+    NSPredicate *straightSearchPredicate = [NSPredicate predicateWithFormat:@"(SELF.from == %@) AND (SELF.to == %@)", first, second];
+    NSPredicate *reverveSearchPredicate = [NSPredicate predicateWithFormat:@"(SELF.from == %@) AND (SELF.to == %@)", second, first];
+
+    NSArray *straight = [rates filteredArrayUsingPredicate:straightSearchPredicate];
+    NSArray *reverse = [rates filteredArrayUsingPredicate:reverveSearchPredicate];
+    if (straight.count == 0 && reverse.count == 0)
+    {
+        NSMutableArray *mutableRates = [rates mutableCopy];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF.to == %@", second];
+        NSArray *convertableCurr = [rates filteredArrayUsingPredicate:pred];
+        NSDictionary *rate = convertableCurr.firstObject;
+        [mutableRates removeObject:rate];
+        double currentRatio = [rate[@"rate"] doubleValue];
+        NSString *newSecond = rate[@"from"];
+        double tmpRatio = [self getApropriateRateFor:first and:newSecond usingRates:[mutableRates copy]];
+        return currentRatio * tmpRatio;
+    }
+
+    return straight.count == 0 ? 1 / [reverse.firstObject[@"rate"] doubleValue] : [straight.firstObject[@"rate"] doubleValue];
+}
+
 
 // Private methods
 

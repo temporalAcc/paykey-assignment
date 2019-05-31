@@ -10,6 +10,16 @@
 #define Defines_h
 #define kPKASKU                  @"sku"
 #define kPKACurrency             @"currency"
+#define kPKAAmount               @"amount"
 #define kPKAMainCellReuseID      @"mainCell"
 #define kPKADetailCellReuseID    @"detailCell"
+#define kPKADetailViewSegue      @"detailSegue"
+
+#define kPKATransactionGroupTitle @"title"
+#define kPKATransactionGroupTransactions  @"transactions"
+
+#import "DataManager.h"
+#import "MainViewController.h"
+#import "DetailViewController.h"
+#import "AppDelegate.h"
 #endif /* Defines_h */

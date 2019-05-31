@@ -22,8 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray *)getRates;
 - (NSArray *)getTransactions;
+- (double)convertFrom:(NSString *)first to:(NSString *)second amount:(double)amount;
 
 + (NSArray *)filterTransactionsArray:(NSArray *)transactions ByParameter:(PSKFilterParameter)parameter andValue:(NSString *)value;
++ (NSArray *)groupByKey:(NSString *)key transactions:(NSArray *)transactions;
+
 @end
 
 NS_ASSUME_NONNULL_END
