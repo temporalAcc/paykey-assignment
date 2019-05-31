@@ -22,4 +22,5 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "AppDelegate.h"
+#import "PSKInfoView.h"
 #endif /* Defines_h */

@@ -19,6 +19,7 @@
 		1D462FD422A13EDB00163625 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D462FD322A13EDB00163625 /* MainViewController.m */; };
 		1D462FD722A13EF100163625 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D462FD622A13EF100163625 /* DetailViewController.m */; };
 		1D462FDA22A13FA800163625 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D462FD922A13FA800163625 /* DataManager.m */; };
+		1DF2773822A19C2C0033FB54 /* PSKInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2773722A19C2C0033FB54 /* PSKInfoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		1D462FD822A13FA800163625 /* DataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		1D462FD922A13FA800163625 /* DataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		1D462FDB22A1506B00163625 /* PrefixHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.h; sourceTree = "<group>"; };
+		1DF2773622A19C2C0033FB54 /* PSKInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSKInfoView.h; sourceTree = "<group>"; };
+		1DF2773722A19C2C0033FB54 /* PSKInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSKInfoView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				1D462FC122A13A8600163625 /* Info.plist */,
 				1D462FC222A13A8600163625 /* main.m */,
 				1D462FDB22A1506B00163625 /* PrefixHeader.h */,
+				1DF2773622A19C2C0033FB54 /* PSKInfoView.h */,
+				1DF2773722A19C2C0033FB54 /* PSKInfoView.m */,
 			);
 			path = "passkey-assignment";
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				1D462FC322A13A8600163625 /* main.m in Sources */,
 				1D462FDA22A13FA800163625 /* DataManager.m in Sources */,
 				1D462FD422A13EDB00163625 /* MainViewController.m in Sources */,
+				1DF2773822A19C2C0033FB54 /* PSKInfoView.m in Sources */,
 				1D462FB522A13A8300163625 /* AppDelegate.m in Sources */,
 				1D462FD722A13EF100163625 /* DetailViewController.m in Sources */,
 			);

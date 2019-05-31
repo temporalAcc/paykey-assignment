@@ -12,14 +12,41 @@
 
 @interface MainViewController ()
 @property (nonatomic, strong) NSArray *transactions;
+@property (nonatomic, strong) PSKInfoView *infoView;
 @end
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *allTransactions = [DataManager.shared getTransactions];
-    _transactions = [DataManager groupByKey:kPKASKU transactions:allTransactions];
+
+    _infoView = [[PSKInfoView alloc] initWithFrame:self.tableView.frame];
+    [self.tableView addSubview:_infoView];
+    [_infoView showLoadingIndicator];
+    typeof(self) __weak weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        typeof(self) __strong strongSelf = weakSelf;
+        NSArray *allTransactions = [DataManager.shared getTransactions];
+        sleep(3);
+        if (allTransactions == nil || allTransactions.count == 0)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.infoView showErrorMessage:@"No data"];
+            });
+        }
+        else
+        {
+            strongSelf.transactions = [DataManager groupByKey:kPKASKU transactions:allTransactions];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.infoView hideLoadingIndicator];
+                [strongSelf.tableView reloadData];
+            });
+        }
+    });
+
+
+
 }
 
 #pragma mark - Table view data source
@@ -69,6 +96,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
+
+
 
 
 @end
