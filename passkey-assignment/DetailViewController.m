@@ -11,7 +11,6 @@
 
 
 @interface DetailViewController ()
-@property (nonatomic, strong)NSArray *rates;
 @property (nonatomic, strong)NSArray *groupedTransactions;
 @end
 
@@ -19,15 +18,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _rates = [DataManager.shared getRates];
     _groupedTransactions = [DataManager groupByKey:kPKACurrency transactions:_transactions];
-
+    if (_groupedTransactions == nil || _groupedTransactions.count == 0)
+        [self showMessage:@"No transactions"];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _groupedTransactions.count;
+    return _groupedTransactions.count ?: 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -44,12 +43,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kPKADetailCellReuseID forIndexPath:indexPath];
     NSDictionary *cellData = _groupedTransactions[indexPath.section][kPKATransactionGroupTransactions][indexPath.row];
-    double valueInGPB = [DataManager.shared convertFrom:cellData[kPKACurrency] to:@"GBP" amount:[cellData[kPKAAmount] doubleValue]];
+    double valueInGPB = [DataManager.shared convertCurrencyFrom:cellData[kPKACurrency] to:@"GBP" amount:[cellData[kPKAAmount] doubleValue]];
     cell.textLabel.text = [NSString stringWithFormat:@"Amount in GPB: %.2f", valueInGPB];
     cell.detailTextLabel.text = @"";
     
     return cell;
 }
 
+- (void)showMessage:(NSString *)message
+{
+    PSKInfoView *infoView = [[PSKInfoView alloc] initWithFrame:self.tableView.frame];
+    [self.tableView addSubview:infoView];
+    [infoView showErrorMessage:message];
+}
 
 @end
