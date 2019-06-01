@@ -18,7 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // Grouping transactions by currency
     _groupedTransactions = [DataManager groupByKey:kPKACurrency transactions:_transactions];
+
+    // If no transactions - showing message
     if (_groupedTransactions == nil || _groupedTransactions.count == 0)
         [self showMessage:@"No transactions"];
 }
@@ -43,7 +47,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kPKADetailCellReuseID forIndexPath:indexPath];
     NSDictionary *cellData = _groupedTransactions[indexPath.section][kPKATransactionGroupTransactions][indexPath.row];
+
+    // Converting to GBP
     double valueInGPB = [DataManager.shared convertCurrencyFrom:cellData[kPKACurrency] to:@"GBP" amount:[cellData[kPKAAmount] doubleValue]];
+
     cell.textLabel.text = [NSString stringWithFormat:@"Amount in GPB: %.2f", valueInGPB];
     cell.detailTextLabel.text = @"";
     

@@ -17,11 +17,15 @@
 
 @implementation PSKInfoView
 
+// UI Code better to be separated from View Controller
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
+        //init view and subviews
         self.tag = 1000;
         self.backgroundColor = UIColor.whiteColor;
 
@@ -40,6 +44,7 @@
 - (void)showErrorMessage:(NSString *)message
 {
     self.hidden = NO;
+    // For exception safety checking if superview is table view
     if ([self.superview isKindOfClass:UITableView.class])
     {
         UITableView *superView = (UITableView *)self.superview;

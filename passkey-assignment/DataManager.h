@@ -8,23 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-
-typedef NS_ENUM(NSUInteger, PSKFilterParameter) {
-    PSKFilterParameterSKU,
-    PSKFilterParameterCurrency
-};
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DataManager : NSObject
+// singleton property
 + (instancetype)shared;
-
 
 - (NSArray *)getRates;
 - (NSArray *)getTransactions;
-- (double)convertFrom:(NSString *)first to:(NSString *)second amount:(double)amount;
-
-+ (NSArray *)filterTransactionsArray:(NSArray *)transactions ByParameter:(PSKFilterParameter)parameter andValue:(NSString *)value;
+- (double)convertCurrencyFrom:(NSString *)first to:(NSString *)second amount:(double)amount;
 + (NSArray *)groupByKey:(NSString *)key transactions:(NSArray *)transactions;
 
 @end
