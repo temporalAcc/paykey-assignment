@@ -48,6 +48,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Products" id="6eZ-iA-8kF"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="oPi-nV-DTk">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Loading...">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <connections>
+                            <action selector="refresh:" destination="NtC-bo-5Xf" eventType="valueChanged" id="e2w-Cs-dFd"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <segue destination="1vz-wC-mQ1" kind="show" identifier="detailSegue" id="ip5-Ld-7He"/>
                     </connections>

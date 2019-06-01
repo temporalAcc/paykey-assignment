@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, DataType)
 {
     NSArray *files = [self getDataFor:DataTypeTransactions];
     NSArray *result = [self parseJSONFilesFrom:files];
+    sleep(3);
     return result;
 }
 

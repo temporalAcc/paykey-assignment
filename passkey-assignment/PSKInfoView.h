@@ -11,8 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSKInfoView : UIView
-- (void)hideLoadingIndicator;
-- (void)showLoadingIndicator;
 - (void)showErrorMessage:(NSString *)message;
 - (void)hideError;
 @end

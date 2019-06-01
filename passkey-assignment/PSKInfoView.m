@@ -24,14 +24,6 @@
     {
         self.tag = 1000;
         self.backgroundColor = UIColor.whiteColor;
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        _spinner.color = UIColor.grayColor;
-        _spinner.hidesWhenStopped = YES;
-        _spinner.translatesAutoresizingMaskIntoConstraints = NO;
-        [_spinner stopAnimating];
-        [self addSubview:_spinner];
-        [_spinner.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
-        [_spinner.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
 
         _label = [UILabel new];
         _label.hidden = YES;
@@ -45,29 +37,15 @@
 }
 
 
-
-- (void)showLoadingIndicator
-{
-    UITableView *superView = (UITableView *)self.superview;
-    superView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.hidden = NO;
-    [_spinner startAnimating];
-}
-
-- (void)hideLoadingIndicator
-{
-    UITableView *superView = (UITableView *)self.superview;
-    superView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [_spinner stopAnimating];
-    self.hidden = YES;
-}
-
-
 - (void)showErrorMessage:(NSString *)message
 {
-    [_spinner stopAnimating];
-    UITableView *superView = (UITableView *)self.superview;
-    superView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.hidden = NO;
+    if ([self.superview isKindOfClass:UITableView.class])
+    {
+        UITableView *superView = (UITableView *)self.superview;
+        superView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+
     _label.text = message;
     _label.hidden = NO;
 }
@@ -77,8 +55,12 @@
     _label.text = @"";
     _label.hidden = YES;
     self.hidden = YES;
-    UITableView *superView = (UITableView *)self.superview;
-    superView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    if ([self.superview isKindOfClass:UITableView.class])
+    {
+        UITableView *superView = (UITableView *)self.superview;
+        superView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    [self removeFromSuperview];
 }
 
 @end

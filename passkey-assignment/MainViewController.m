@@ -19,32 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     _infoView = [[PSKInfoView alloc] initWithFrame:self.tableView.frame];
-    [self.tableView addSubview:_infoView];
-    [_infoView showLoadingIndicator];
-    typeof(self) __weak weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        typeof(self) __strong strongSelf = weakSelf;
-        NSArray *allTransactions = [DataManager.shared getTransactions];
-        sleep(3);
-        if (allTransactions == nil || allTransactions.count == 0)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [strongSelf.infoView showErrorMessage:@"No data"];
-            });
-        }
-        else
-        {
-            strongSelf.transactions = [DataManager groupByKey:kPKASKU transactions:allTransactions];
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [strongSelf.infoView hideLoadingIndicator];
-                [strongSelf.tableView reloadData];
-            });
-        }
-    });
-
+    [self loadData];
 
 
 }
@@ -84,7 +60,6 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:kPKADetailViewSegue])
     {
@@ -93,11 +68,38 @@
         vc.navigationItem.title = data[@"title"];
         vc.transactions = data[@"data"];
     }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+}
+- (IBAction)refresh:(UIRefreshControl *)sender {
+    [_infoView hideError];
+    [self loadData];
 }
 
+- (void)loadData
+{
+    [self.refreshControl beginRefreshing];
+    typeof(self) __weak weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        typeof(self) __strong strongSelf = weakSelf;
+        NSArray *allTransactions = [DataManager.shared getTransactions];
+        if (allTransactions == nil || allTransactions.count == 0)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.refreshControl endRefreshing];
+                [strongSelf.tableView addSubview:strongSelf.infoView];
+                [strongSelf.infoView showErrorMessage:@"No data, pull to refresh"];
+            });
+        }
+        else
+        {
+            strongSelf.transactions = [DataManager groupByKey:kPKASKU transactions:allTransactions];
 
-
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.refreshControl endRefreshing];
+                [strongSelf.tableView reloadData];
+            });
+        }
+    });
+}
 
 @end
